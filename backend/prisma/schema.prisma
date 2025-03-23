@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Technology {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  image       String
+  highlight   Boolean @default(false)
+
+  projects Project[]
+
+  @@map("technologies")
+}
+
+model Project {
+  id           Int          @id @default(autoincrement())
+  name         String
+  description  String
+  images       String[]
+  link         String
+  level        Int
+  type         String
+  highlight    Boolean      @default(false)
+  Technologies Technology[]
+
+  @@map("projects")
+}
